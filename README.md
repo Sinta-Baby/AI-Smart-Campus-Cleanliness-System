@@ -99,7 +99,7 @@ Note: The `.env` file is excluded from version control for security purposes.
 
 ## Author
 
-Developed by **CeeQ — Where Code Meets Cognition**
+Developed by **CeeQ — Where Code Meets Cognition**(group project )
 
 ---
 
