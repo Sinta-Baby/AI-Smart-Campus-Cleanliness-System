@@ -1,0 +1,27 @@
+# Secrets
+.env
+svenv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs & reports
+reports/
+logs/
+*.log
+
+# Evidence & media
+evidence/
+*.jpg
+*.png
+*.mp4
+*.avi
+
+# Models
+*.pt
+*.pth
+
+# IDE
+.vscode/
+.idea/

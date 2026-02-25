@@ -1,0 +1,232 @@
+{
+  "sessions": [
+    {
+      "location": "Web Monitoring - Main Campus",
+      "start_time": "2026-02-17 01:04:21",
+      "end_time": "2026-02-17 01:08:06",
+      "frames_analyzed": 623,
+      "total_garbage_detections": 266,
+      "dumping_events": 1,
+      "average_cleanliness_score": 94.3,
+      "rating": "Excellent",
+      "samples": [
+        {
+          "timestamp": "2026-02-17 01:04:32",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:04:43",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:04:53",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:05:04",
+          "score": 90.6,
+          "rating": "Excellent",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:05:14",
+          "score": 81.71,
+          "rating": "Good",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:05:25",
+          "score": 88.48,
+          "rating": "Good",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:05:36",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:05:46",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:05:57",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:06:08",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:06:18",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:06:29",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:06:40",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:06:51",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:07:01",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:07:12",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:07:22",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:07:33",
+          "score": 81.14,
+          "rating": "Good",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:07:43",
+          "score": 81.35,
+          "rating": "Good",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:07:58",
+          "score": 62.82,
+          "rating": "Fair",
+          "garbage_count": 2
+        }
+      ]
+    },
+    {
+      "location": "Web Monitoring - Main Campus",
+      "start_time": "2026-02-17 01:08:41",
+      "end_time": "2026-02-17 01:10:28",
+      "frames_analyzed": 289,
+      "total_garbage_detections": 205,
+      "dumping_events": 1,
+      "average_cleanliness_score": 85.32,
+      "rating": "Good",
+      "samples": [
+        {
+          "timestamp": "2026-02-17 01:08:52",
+          "score": 81.11,
+          "rating": "Good",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:09:06",
+          "score": 81.02,
+          "rating": "Good",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:09:17",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:09:28",
+          "score": 81.17,
+          "rating": "Good",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:09:38",
+          "score": 81.11,
+          "rating": "Good",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:09:49",
+          "score": 81.17,
+          "rating": "Good",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:10:00",
+          "score": 81.17,
+          "rating": "Good",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:10:11",
+          "score": 100.0,
+          "rating": "Excellent",
+          "garbage_count": 0
+        },
+        {
+          "timestamp": "2026-02-17 01:10:21",
+          "score": 81.17,
+          "rating": "Good",
+          "garbage_count": 1
+        }
+      ]
+    },
+    {
+      "location": "Web Monitoring - Main Campus",
+      "start_time": "2026-02-17 01:21:59",
+      "end_time": "2026-02-17 01:22:44",
+      "frames_analyzed": 115,
+      "total_garbage_detections": 79,
+      "dumping_events": 1,
+      "average_cleanliness_score": 87.57,
+      "rating": "Good",
+      "samples": [
+        {
+          "timestamp": "2026-02-17 01:22:10",
+          "score": 81.71,
+          "rating": "Good",
+          "garbage_count": 2
+        },
+        {
+          "timestamp": "2026-02-17 01:22:21",
+          "score": 96.73,
+          "rating": "Excellent",
+          "garbage_count": 1
+        },
+        {
+          "timestamp": "2026-02-17 01:22:32",
+          "score": 84.28,
+          "rating": "Good",
+          "garbage_count": 2
+        }
+      ]
+    }
+  ]
+}

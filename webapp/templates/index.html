@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Campus Monitoring System | AI-Powered Surveillance</title>
+
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Initializing System...</p>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>Smart Campus</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="menu-item active" data-section="dashboard">
+                <i class="fas fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="menu-item" data-section="monitoring">
+                <i class="fas fa-video"></i>
+                <span>Live Monitoring</span>
+            </div>
+
+            <div class="menu-item" data-section="evidence">
+                <i class="fas fa-folder-open"></i>
+                <span>Evidence</span>
+            </div>
+            <div class="menu-item" data-section="reports">
+                <i class="fas fa-file-alt"></i>
+                <span>Reports</span>
+            </div>
+            <div class="menu-item" data-section="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="system-status">
+                <div class="status-indicator" id="sidebarStatus"></div>
+                <span>System Online</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+
+            <div class="top-bar-right">
+                <div class="notification-badge" id="notificationBadge">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="notificationCount">0</span>
+                </div>
+
+                <!--<div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=4f46e5&color=fff" alt="Profile">
+                    <div class="user-info">
+                        <span class="user-name">Admin User</span>
+                        <span class="user-role">System Administrator</span>
+                    </div>-->
+            </div>
+            </div>
+        </header>
+
+        <!-- Content Sections -->
+        <div class="content-sections">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Cleanliness Score</h3>
+                            <div class="stat-value" id="dashboardCleanlinessScore">98%</div>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i> +5% from yesterday
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card success">
+                        <div class="stat-icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Garbage Detected</h3>
+                            <div class="stat-value" id="dashboardGarbageCount">24</div>
+                            <div class="stat-trend negative">
+                                <i class="fas fa-exclamation-triangle"></i> 3 new alerts
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card info">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>People Count</h3>
+                            <div class="stat-value" id="dashboardPeopleCount">156</div>
+                            <div class="stat-trend">
+                                <i class="fas fa-clock"></i> Current count
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card warning">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Incidents</h3>
+                            <div class="stat-value" id="dashboardIncidentsCount">7</div>
+                            <div class="stat-trend negative">
+                                <i class="fas fa-arrow-up"></i> +2 today
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Cleanliness Trend</h3>
+                            <div class="card-actions">
+                                <button class="btn-icon"><i class="fas fa-download"></i></button>
+                                <button class="btn-icon"><i class="fas fa-expand"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="cleanlinessChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Detection Distribution</h3>
+                            <div class="card-actions">
+                                <button class="btn-icon"><i class="fas fa-download"></i></button>
+                                <button class="btn-icon"><i class="fas fa-expand"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="detectionChart"></canvas>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="recent-alerts">
+                    <div class="card-header">
+                        <h3>Recent Alerts</h3>
+                        <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="alerts-timeline" id="recentAlertsList">
+                        <!-- Alerts will be populated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Monitoring Section -->
+            <section id="monitoring" class="content-section">
+                <div class="monitoring-header">
+                    <div class="control-panel">
+                        <button id="startBtn" class="btn btn-success" onclick="startMonitoring()">
+                            <i class="fas fa-play"></i> Start Monitoring
+                        </button>
+                        <button id="stopBtn" class="btn btn-danger" onclick="stopMonitoring()" disabled>
+                            <i class="fas fa-stop"></i> Stop Monitoring
+                        </button>
+                        <span id="statusIndicator" class="status-badge">Offline</span>
+                    </div>
+                    <div class="recording-time" id="recordingTime">
+                        <i class="far fa-clock"></i> 00:00:00
+                    </div>
+                </div>
+
+                <div class="video-grid">
+                    <div class="video-card main-feed">
+                        <div class="video-header">
+                            <h3><i class="fas fa-camera"></i> Main Camera Feed</h3>
+                            <div class="video-quality">HD</div>
+                        </div>
+                        <div class="video-wrapper">
+                            <img id="videoFeed"
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+                                alt="Live Feed">
+                            <div id="recordingIndicator" class="recording-indicator" style="display: none;">
+                                <span class="pulse-dot"></span> REC
+                            </div>
+                            <div id="noFeedMessage" class="no-feed-message">
+                                <i class="fas fa-video-slash"></i>
+                                <p>Camera feed will appear here when monitoring starts</p>
+                            </div>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-trash"></i>
+                                <span id="feedGarbageCount">0</span> Garbage
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-user"></i>
+                                <span id="feedPeopleCount">0</span> People
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-percent"></i>
+                                <span id="feedCleanliness">100%</span> Clean
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-card alerts-feed">
+                        <div class="video-header">
+                            <h3><i class="fas fa-bell"></i> Live Alerts</h3>
+                            <span class="badge" id="liveAlertCount">0</span>
+                        </div>
+                        <div class="alerts-list" id="alertsList">
+                            <div class="no-alerts">
+                                <i class="fas fa-check-circle"></i>
+                                <p>No alerts. System is running smoothly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detection-stats">
+                    <div class="stat-row">
+                        <div class="stat-label">Garbage Detection Rate</div>
+                        <div class="stat-bar">
+                            <div class="bar-fill" style="width: 85%" id="garbageRateBar"></div>
+                        </div>
+                        <span class="stat-value" id="garbageRateValue">85%</span>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-label">People Detection Rate</div>
+                        <div class="stat-bar">
+                            <div class="bar-fill" style="width: 92%" id="peopleRateBar"></div>
+                        </div>
+                        <span class="stat-value" id="peopleRateValue">92%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="content-section">
+                <div class="analytics-header">
+                    <h2>Analytics Dashboard</h2>
+                    <div class="date-range">
+                        <select id="timeRange">
+                            <option value="today">Today</option>
+                            <option value="week" selected>This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="refreshAnalytics()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card full-width">
+                        <div class="card-header">
+                            <h3>Detection Timeline</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="timelineChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <h3>Garbage Types</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="garbageTypesChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <h3>Peak Hours</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="peakHoursChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Evidence Section -->
+            <section id="evidence" class="content-section">
+                <div class="section-header">
+                    <h2>Evidence Gallery</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="loadEvidence()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                        <button class="btn btn-success" onclick="downloadAllEvidence()">
+                            <i class="fas fa-download"></i> Download All
+                        </button>
+                    </div>
+                </div>
+
+                <div class="evidence-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="image">Images</button>
+                    <button class="filter-btn" data-filter="video">Videos</button>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search evidence..." id="evidenceSearch">
+                    </div>
+                </div>
+
+                <div id="evidenceGallery" class="evidence-grid">
+                    <!-- Evidence will be populated here -->
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="content-section">
+                <div class="section-header">
+                    <h2>Generated Reports</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="loadReports()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                        <button class="btn btn-success" onclick="generateReport()">
+                            <i class="fas fa-plus"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="reports-grid" id="reportsList">
+                    <!-- Reports will be populated here -->
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="content-section">
+                <h2>System Settings</h2>
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Detection Settings</h3>
+                        <div class="setting-item">
+                            <label>Detection Confidence Threshold</label>
+                            <input type="range" min="0" max="100" value="80" id="confidenceThreshold">
+                            <span id="confidenceValue">80%</span>
+                        </div>
+                        <div class="setting-item">
+                            <label>Alert Sensitivity</label>
+                            <select id="alertSensitivity">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Notification Settings</h3>
+                        <div class="setting-item">
+                            <label>Email Alerts</label>
+                            <label class="switch">
+                                <input type="checkbox" checked id="emailAlerts">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>SMS Alerts</label>
+                            <label class="switch">
+                                <input type="checkbox" id="smsAlerts">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Storage Settings</h3>
+                        <div class="setting-item">
+                            <label>Auto-delete after (days)</label>
+                            <input type="number" value="30" min="1" max="365" id="autoDeleteDays">
+                        </div>
+                        <div class="setting-item">
+                            <label>Compression Quality</label>
+                            <input type="range" min="0" max="100" value="85" id="compressionQuality">
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>📧 Email Configuration</h3>
+                        <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+                            Configure the recipient email for receiving alerts. Sender credentials are managed in the
+                            system configuration.
+                        </p>
+                        <div class="setting-item">
+                            <label>Recipient Email</label>
+                            <input type="email" id="recipientEmail" placeholder="recipient@gmail.com">
+                        </div>
+                        <div class="setting-item">
+                            <button class="btn btn-success" onclick="saveEmailSettings()">
+                                <i class="fas fa-save"></i> Save Recipient Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notificationPanel">
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <button class="btn-icon" onclick="markAllAsRead()">
+                <i class="fas fa-check-double"></i>
+            </button>
+        </div>
+        <div class="notification-list" id="notificationList">
+            <!-- Notifications will be populated here -->
+        </div>
+    </div>
+
+    <!-- Modal for viewing content -->
+    <div id="contentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Document Viewer</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <pre id="modalContent" style="display: none;"></pre>
+                <div id="modalImageContainer" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container for notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
